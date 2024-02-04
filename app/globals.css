@@ -8,14 +8,6 @@
   --background-end-rgb: 255, 255, 255;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
-}
-
 body {
   color: rgb(var(--foreground-rgb));
   background: linear-gradient(
@@ -30,4 +22,30 @@ body {
   .text-balance {
     text-wrap: balance;
   }
+}
+/* .rdrDefinedRangesWrapper {
+  display: none;
+} */
+.aria-selected\:bg-tremor-background-emphasis[aria-selected='true'] {
+  --tw-bg-opacity: 1;
+  background-color: rgb(255 65 81 / var(--tw-bg-opacity)) !important;
+}
+
+[type='text'],
+input:where(:not([type])),
+[type='email'],
+[type='url'],
+[type='password'],
+[type='number'],
+[type='date'],
+[type='datetime-local'],
+[type='month'],
+[type='search'],
+[type='tel'],
+[type='time'],
+[type='week'],
+[multiple],
+textarea,
+select {
+  border-width: 0;
 }
