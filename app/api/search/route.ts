@@ -4,7 +4,9 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function GET(request: NextRequest) {
   try {
     // Fetch flight data from your data source (e.g., an external API or database)
-    const response = await axios.get('http://localhost:3000/api/flights');
+    const response = await axios.get(
+      process.env.DEPLOYMENT_URL + '/api/flights'
+    );
     const data: IFlight[] = await response.data;
 
     if (!data || data.length === 0) {

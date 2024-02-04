@@ -35,7 +35,7 @@ const SearchPage: NextPage = () => {
     };
 
     fetchData();
-  }, []);
+  }, [from, to]);
 
   return (
     <div>
