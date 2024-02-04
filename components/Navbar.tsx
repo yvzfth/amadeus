@@ -68,19 +68,22 @@ export default function NavbaComponent() {
           <NavbarItem
             key={index}
             isActive={currentPath.includes(
-              item.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
+              item?.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
             )}
           >
             <Link
               color={
                 currentPath.includes(
-                  item.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
+                  item
+                    ?.toLowerCase()
+                    .replace(/ & /g, '-and-')
+                    .replace(/ /g, '-')
                 )
                   ? 'primary'
                   : 'foreground'
               }
               href={`/${item
-                .toLowerCase()
+                ?.toLowerCase()
                 .replace(/ & /g, '-and-')
                 .replace(/ /g, '-')}`}
             >
@@ -104,19 +107,22 @@ export default function NavbaComponent() {
           <NavbarMenuItem
             key={index}
             isActive={currentPath.includes(
-              item.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
+              item?.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
             )}
           >
             <Link
               color={
                 currentPath.includes(
-                  item.toLowerCase().replace(/ & /g, '-and-').replace(/ /g, '-')
+                  item
+                    ?.toLowerCase()
+                    .replace(/ & /g, '-and-')
+                    .replace(/ /g, '-')
                 )
                   ? 'primary'
                   : 'foreground'
               }
               href={`/${item
-                .toLowerCase()
+                ?.toLowerCase()
                 .replace(/ & /g, '-and-')
                 .replace(/ /g, '-')}`}
             >

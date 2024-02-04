@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <DateRangePicker
       placeholder='Pick a date range'
-      className='max-w-md mx-auto'
+      className='max-w-md mx-auto w-full'
       value={value}
       minDate={new Date()}
       maxDate={addDays(new Date(), 360)}

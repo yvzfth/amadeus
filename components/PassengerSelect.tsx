@@ -110,8 +110,6 @@ const CabinPassengerSelection = () => {
     });
   };
 
-  // Define a function to toggle the modal visibility
-
   // Define a function to get the total number of passengers
   const getTotalPassengers = () => {
     return Object.values(passengers).reduce((a, b) => a + b, 0);
@@ -134,10 +132,10 @@ const CabinPassengerSelection = () => {
             icon={IoPeople}
             color='slate'
             content='Passengers'
-            className='bg-white text-[rgb(55,65,81)] w-40'
+            className='bg-white text-[rgb(55,65,81)] w-48'
             {...bindTrigger(popupState)}
           >
-            Passengers
+            {getTotalPassengers()} Passengers
           </Button>
           <Menu
             {...bindMenu(popupState)}

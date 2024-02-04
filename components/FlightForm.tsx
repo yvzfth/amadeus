@@ -4,15 +4,56 @@ import { FLIGHT_OPTIONS, FlightOptionsEnum } from '@/utils/index';
 import DateRangePicker from '@/components/DateRangePicker';
 import CabinPassengerSelection from '@/components/PassengerSelect';
 import { IoAirplane } from 'react-icons/io5';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { HiOutlineArrowPathRoundedSquare } from 'react-icons/hi2';
 import { LuMilestone } from 'react-icons/lu';
 import DatePickerComponent from './DatePicker';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
 
 // Define a custom component for the flight booking form
 export default function FlightForm() {
   const [from, setFrom] = useState('');
   const [to, setTo] = useState('');
+  const [departureAirports, setDepartureAirports] = useState<Airport[]>([]);
+  const [arrivalAirports, setArrivalAirports] = useState<Airport[]>([]);
+  const router = useRouter();
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await axios.get<IFlight[]>('/api/flights');
+
+        const uniqueDepartureAirports = Array.from(
+          new Map(
+            response.data.map((flight) => [
+              flight.departureAirport.code,
+              flight.departureAirport,
+            ])
+          ).values()
+        );
+
+        const uniqueArrivalAirports = Array.from(
+          new Map(
+            response.data.map((flight) => [
+              flight.arrivalAirport.code,
+              flight.arrivalAirport,
+            ])
+          ).values()
+        );
+
+        setDepartureAirports(uniqueDepartureAirports);
+        setArrivalAirports(uniqueArrivalAirports);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
+  // Function to handle flight search
+  const handleSearch = async () => {
+    router.push('/search?from=' + from + '&to=' + to);
+  };
   return (
     <div>
       <Tabs
@@ -45,33 +86,51 @@ export default function FlightForm() {
                 name='from'
                 value={from}
                 onValueChange={setFrom}
-                className='w-40'
+                className='w-48'
                 placeholder='From'
               >
-                <SearchSelectItem value='IST'>Istanbul</SearchSelectItem>
+                {departureAirports?.map((airport) => (
+                  <SearchSelectItem key={airport?.code} value={airport?.code}>
+                    {airport?.city} ({airport?.code})
+                  </SearchSelectItem>
+                ))}
               </SearchSelect>
               <SearchSelect
                 name='to'
                 value={to}
                 onValueChange={setTo}
-                className='w-40'
+                className='w-48'
                 placeholder='To'
               >
-                <SearchSelectItem value='WAW'>Varsov</SearchSelectItem>
+                {arrivalAirports?.map((airport) => (
+                  <SearchSelectItem key={airport?.code} value={airport?.code}>
+                    {airport?.city} ({airport?.code})
+                  </SearchSelectItem>
+                ))}
               </SearchSelect>
               {option === FlightOptionsEnum.RoundTrip ? (
-                <DateRangePicker />
+                <div className='w-48'>
+                  <DateRangePicker />
+                </div>
               ) : (
-                <DatePickerComponent />
+                <div className='w-48'>
+                  <DatePickerComponent />
+                </div>
               )}
               <CabinPassengerSelection />
-              <Button size='sm' className='w-40 font-bold' icon={IoAirplane}>
+              <Button
+                size='sm'
+                className='w-48 font-bold'
+                icon={IoAirplane}
+                onClick={handleSearch}
+              >
                 Search flight
               </Button>
             </div>
           </Tab>
         ))}
       </Tabs>
+      {/* Search result list */}
     </div>
   );
 }

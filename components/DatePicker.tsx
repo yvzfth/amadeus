@@ -7,7 +7,7 @@ export default function DatePickerComponent() {
   return (
     <DatePicker
       placeholder='Pick a date'
-      className='max-w-md mx-auto'
+      className='max-w-md mx-auto min-w-48 '
       value={value}
       minDate={new Date()}
       maxDate={addDays(new Date(), 360)}

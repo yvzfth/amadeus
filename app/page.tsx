@@ -16,7 +16,7 @@ const Home = () => {
             Where do you want to explore?
           </Metric>
         </section>
-        <section className='w-20 h-32'></section>
+        <section className='w-20 h-[5.5rem]'></section>
         <div className='flex items-center justify-center w-full '>
           <FlightForm />
         </div>
