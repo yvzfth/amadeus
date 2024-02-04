@@ -22,7 +22,7 @@ const SearchPage: NextPage = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        if (from && to) {
+        if (from && to && from.trim() !== '' && to.trim() !== '') {
           const response = await axios.get<IFlight[]>('/api/search', {
             params: { from, to },
           });
