@@ -14,7 +14,7 @@ import {
 } from '@nextui-org/react';
 import Navbar from '@/components/Navbar';
 
-export const SearchPage: NextPage = () => {
+const SearchPage: NextPage = () => {
   const params = useSearchParams();
   const from = params.get('from');
   const to = params.get('to');
